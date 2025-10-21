@@ -27,9 +27,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2025062601;
+$plugin->version  = 2025103101;
 $plugin->requires = 2012120300;
 $plugin->cron     = 0;
 $plugin->component = 'mod_pdfjsfolder';
 $plugin->maturity = MATURITY_BETA;
-$plugin->release  = '0.2';
+$plugin->release  = '0.2.1';
