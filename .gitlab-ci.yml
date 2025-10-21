@@ -28,12 +28,12 @@ variables:
     - moodle-plugin-ci phpcpd --exclude mod/pdfjsfolder/pdfjs-5.1.91-dist
     - moodle-plugin-ci phpmd --exclude mod/pdfjsfolder/pdfjs-5.1.91-dist
     - moodle-plugin-ci codechecker
-    #- moodle-plugin-ci validate
-    #- moodle-plugin-ci savepoints
+    - moodle-plugin-ci validate
+    - moodle-plugin-ci savepoints
     #- moodle-plugin-ci mustache
     #- moodle-plugin-ci grunt
-    #- moodle-plugin-ci phpdoc
-    #- moodle-plugin-ci phpunit
+    - moodle-plugin-ci phpdoc
+    - moodle-plugin-ci phpunit
     #- moodle-plugin-ci behat --profile chrome --auto-rerun 0
   parallel:
     matrix:
