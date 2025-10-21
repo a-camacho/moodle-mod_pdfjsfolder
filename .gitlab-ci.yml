@@ -24,10 +24,10 @@ variables:
     - moodle-db-isready
     - moodle-plugin-ci install --moodle="moodle-upstream-core" --db-host=$DB_HOST --db-port=$DB_PORT
   script:
-    - moodle-plugin-ci phplint
-    - moodle-plugin-ci phpcpd
-    - moodle-plugin-ci phpmd
-    - moodle-plugin-ci codechecker
+    - moodle-plugin-ci phplint --exclude mod/pdfjsfolder/pdfjs-5.1.91-dist
+    - moodle-plugin-ci phpcpd --exclude mod/pdfjsfolder/pdfjs-5.1.91-dist
+    - moodle-plugin-ci phpmd --exclude mod/pdfjsfolder/pdfjs-5.1.91-dist
+    - moodle-plugin-ci codechecker --ignore=mod/pdfjsfolder/pdfjs-5.1.91-dist/*
     #- moodle-plugin-ci validate
     #- moodle-plugin-ci savepoints
     #- moodle-plugin-ci mustache
