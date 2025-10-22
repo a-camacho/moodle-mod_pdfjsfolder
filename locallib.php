@@ -169,10 +169,12 @@ class pdfjsfolder {
         $update->openinnewtab = $formdata->openinnewtab;
 
         $result = $DB->update_record('pdfjsfolder', $update);
-        $this->instance = $DB->get_record('pdfjsfolder',
-                                          ['id' => $update->id],
-                                          '*',
-                                          MUST_EXIST);
+        $this->instance = $DB->get_record(
+                'pdfjsfolder',
+                ['id' => $update->id],
+                '*',
+                MUST_EXIST
+            );
         $this->save_files($formdata);
 
         return $result;
@@ -225,10 +227,12 @@ class pdfjsfolder {
         }
         if ($this->get_course_module()) {
             $params = ['id' => $this->get_course_module()->instance];
-            $this->instance = $DB->get_record('pdfjsfolder',
-                                              $params,
-                                              '*',
-                                              MUST_EXIST);
+            $this->instance = $DB->get_record(
+                'pdfjsfolder',
+                $params,
+                '*',
+                MUST_EXIST
+            );
         }
         if (!$this->instance) {
             throw new coding_exception('Improper use of the pdfjsfolder class. ' .
@@ -273,7 +277,8 @@ class pdfjsfolder {
                 $this->context->instanceid,
                 0,
                 false,
-                MUST_EXIST);
+                MUST_EXIST
+            );
             return $this->coursemodule;
         }
         return null;
@@ -330,7 +335,7 @@ class pdfjsfolder {
      * @param string $url The url to the pdfjsfolder module instance.
      * @return void
      */
-    public function add_to_log($action = '', $info = '', $url='') {
+    public function add_to_log($action = '', $info = '', $url = '') {
         global $USER;
 
         $fullurl = 'view.php?id=' . $this->get_course_module()->id;
