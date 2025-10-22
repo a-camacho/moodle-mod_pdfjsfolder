@@ -312,7 +312,8 @@ function pdfjsfolder_get_file_info(
         $filepath = is_null($filepath) ? '/' : $filepath;
         $filename = is_null($filename) ? '.' : $filename;
 
-        if (!$storedfile = $fs->get_file(
+        if (
+            !$storedfile = $fs->get_file(
                 $context->id,
                 'mod_pdfjsfolder',
                 $filearea,
@@ -384,8 +385,13 @@ function pdfjsfolder_pluginfile($course,
     $fs = get_file_storage();
     $relativepath = implode('/', $args);
     $fullpath = rtrim(
-        '/' . $context->id . '/mod_pdfjsfolder/' . $filearea . '/' .
-        $relativepath, '/'
+        '/'
+        . $context->id
+        . '/mod_pdfjsfolder/'
+        . $filearea
+        . '/'
+        . $relativepath,
+        '/'
     );
     $file = $fs->get_file_by_hash(sha1($fullpath));
 
