@@ -170,11 +170,11 @@ class pdfjsfolder {
 
         $result = $DB->update_record('pdfjsfolder', $update);
         $this->instance = $DB->get_record(
-                'pdfjsfolder',
-                ['id' => $update->id],
-                '*',
-                MUST_EXIST
-            );
+            'pdfjsfolder',
+            ['id' => $update->id],
+            '*',
+            MUST_EXIST
+        );
         $this->save_files($formdata);
 
         return $result;
@@ -343,13 +343,14 @@ class pdfjsfolder {
             $fullurl .= '&' . $url;
         }
 
-        add_to_log($this->get_course()->id,
-           'pdfjsfolder',
-           $action,
-           $fullurl,
-           $info,
-           $this->get_course_module()->id,
-           $USER->id
+        add_to_log(
+            $this->get_course()->id,
+            'pdfjsfolder',
+            $action,
+            $fullurl,
+            $info,
+            $this->get_course_module()->id,
+            $USER->id
         );
     }
 
