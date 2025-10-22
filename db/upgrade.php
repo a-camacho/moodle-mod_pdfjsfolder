@@ -52,7 +52,7 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
         // Assign savepoint reached.
         upgrade_mod_savepoint(true, 2025061206, 'pdfjsfolder');
     }
-    
+
     if ($oldversion < 2025103102) {
         $table = new xmldb_table('pdfjsfolder');
         $field = new xmldb_field('introformat', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'intro');

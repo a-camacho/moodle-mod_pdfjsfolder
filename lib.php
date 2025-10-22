@@ -55,9 +55,9 @@ function pdfjsfolder_supports($feature) {
          FEATURE_SHOW_DESCRIPTION => true,
          FEATURE_MOD_PURPOSE => MOD_PURPOSE_CONTENT,
      ];
- 
+
      return $features[$feature] ?? null;
- }
+}
 
 /**
  * Adds a pdfjsfolder instance.
