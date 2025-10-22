@@ -59,7 +59,8 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         $mform->addElement(
             'text',
             'name',
-            get_string('name'), ['size' => '48']
+            get_string('name'),
+            ['size' => '48']
         );
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -82,8 +83,11 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
             'select',
             'display',
             get_string('display', 'pdfjsfolder'),
-            [PDFJS_FOLDER_DISPLAY_PAGE => get_string('displaypage', 'pdfjsfolder'),
-                  PDFJS_FOLDER_DISPLAY_INLINE => get_string('displayinline', 'pdfjsfolder')]);
+            [
+                PDFJS_FOLDER_DISPLAY_PAGE => get_string('displaypage', 'pdfjsfolder'),
+                PDFJS_FOLDER_DISPLAY_INLINE => get_string('displayinline', 'pdfjsfolder')
+            ]
+        );
         $mform->addHelpButton('display', 'display', 'pdfjsfolder');
 
         // Option for showing or not warning about file changes storage.
@@ -130,7 +134,8 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
             'pdfs',
             get_string('pdfs', 'pdfjsfolder'),
             null,
-            $options);
+            $options
+        );
         $mform->addHelpButton('pdfs', 'pdfs', 'pdfjsfolder');
         $mform->addRule('pdfs', null, 'required', null, 'client');
 
@@ -153,12 +158,14 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
                              'maxbytes' => 0,
                              'maxfiles' => -1];
             $draftitemid = file_get_submitted_draft_itemid('pdfs');
-            file_prepare_draft_area($draftitemid,
-                                    $this->context->id,
-                                    'mod_pdfjsfolder',
-                                    'pdfs',
-                                    0,
-                                    $options);
+            file_prepare_draft_area(
+                $draftitemid,
+                $this->context->id,
+                'mod_pdfjsfolder',
+                'pdfs',
+                0,
+                $options
+            );
             $defaultvalues['pdfs'] = $draftitemid;
         }
     }
@@ -180,9 +187,9 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
             array_key_exists('completion', $data) &&
             $data['completion'] == COMPLETION_TRACKING_AUTOMATIC &&
             !empty($data['completionview']) &&
-            $data['display'] == PDFJS_FOLDER_DISPLAY_INLINE)
-        {
-                $errors['completion'] = get_string('noautocompletioninline', 'pdfjsfolder');
+            $data['display'] == PDFJS_FOLDER_DISPLAY_INLINE
+        ) {
+            $errors['completion'] = get_string('noautocompletioninline', 'pdfjsfolder');
         }
 
         return $errors;
