@@ -431,9 +431,10 @@ function pdfjsfolder_cm_info_dynamic(cm_info $cm) {
 function pdfjsfolder_cm_info_view(cm_info $cm) {
     global $PAGE;
 
-    if ($cm->uservisible
-        && $cm->get_custom_data()
-        && has_capability('mod/pdfjsfolder:view', $cm->context)
+    if (
+        $cm->uservisible &&
+        $cm->get_custom_data() &&
+        has_capability('mod/pdfjsfolder:view', $cm->context)
     ) {
         include_once(dirname(__FILE__) . '/locallib.php');
 

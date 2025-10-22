@@ -25,9 +25,9 @@
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
-use Behat\Mink\Exception\ExpectationException as ExpectationException;
-use Behat\Mink\Exception\ElementNotFoundException as ElementNotFoundException;
-use Behat\Gherkin\Node\TableNode as TableNode;
+use Behat\Mink\Exception\ExpectationException;
+use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Gherkin\Node\TableNode;
 
 /**
  * Steps definitions related to mod_pdfjsfolder.
@@ -38,7 +38,6 @@ use Behat\Gherkin\Node\TableNode as TableNode;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_mod_pdfjsfolder extends behat_base {
-
     /**
      * Convert page names to URLs for steps like 'When I am on the "[page name]" page'.
      *
@@ -74,12 +73,16 @@ class behat_mod_pdfjsfolder extends behat_base {
     protected function resolve_page_instance_url(string $type, string $identifier): moodle_url {
         switch ($type) {
             case 'View':
-                return new moodle_url('/mod/pdfjsfolder/view.php',
-                                      ['id' => $this->get_cm_by_pdfjsfolder_name($identifier)->id]);
+                return new moodle_url(
+                    '/mod/pdfjsfolder/view.php',
+                    ['id' => $this->get_cm_by_pdfjsfolder_name($identifier)->id]
+                );
 
             case 'Edit':
-                return new moodle_url('/course/modedit.php',
-                                      ['update' => $this->get_cm_by_pdfjsfolder_name($identifier)->id]);
+                return new moodle_url(
+                    '/course/modedit.php',
+                    ['update' => $this->get_cm_by_pdfjsfolder_name($identifier)->id]
+                );
 
             default:
                 throw new Exception('Unrecognised pdfjsfolder page type "' . $type . '."');
