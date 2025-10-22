@@ -32,7 +32,7 @@ require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
 add_to_log(
-    $course->id,
+   $course->id,
    'pdfjsfolder',
    'view all',
    "index.php?id=$course->id",
@@ -41,27 +41,27 @@ add_to_log(
 
 $strpdf = get_string('modulename', 'pdfjsfolder');
 $strpdfs = get_string('modulenameplural', 'pdfjsfolder');
-$strsectionname = get_string('sectionname', 'format_'.$course->format);
+$strsectionname = get_string('sectionname', 'format_' . $course->format);
 $strname = get_string('name');
 $strintro = get_string('moduleintro');
 $strlastmodified = get_string('lastmodified');
 
 $PAGE->set_url('/mod/pdfjsfolder/index.php', ['id' => $course->id]);
-$PAGE->set_title($course->shortname.': '.$strpdfs);
+$PAGE->set_title($course->shortname . ': ' . $strpdfs);
 $PAGE->set_heading($course->fullname);
 $PAGE->navbar->add($strpdfs);
 echo $OUTPUT->header();
 
 if (!$pdffolders = get_all_instances_in_course('pdfjsfolder', $course)) {
-    notice(
-        get_string(
-            'thereareno',
-            'moodle',
-            $strpdfs
-            ),
-        "$CFG->wwwroot/course/view.php?id=$course->id"
-    );
-    exit;
+   notice(
+      get_string(
+         'thereareno',
+         'moodle',
+         $strpdfs
+      ),
+      "$CFG->wwwroot/course/view.php?id=$course->id"
+   );
+   exit;
 }
 
 $usesections = course_format_uses_sections($course->format);
@@ -93,7 +93,7 @@ foreach ($pdffolders as $pdffolder) {
             $currentsection = $pdffolder->section;
         }
     } else {
-        $printsection = '<span class="smallinfo">'.userdate($pdffolder->timemodified)."</span>";
+        $printsection = '<span class="smallinfo">' . userdate($pdffolder->timemodified) . "</span>";
     }
 
     $extra = empty($cm->extra) ? '' : $cm->extra;

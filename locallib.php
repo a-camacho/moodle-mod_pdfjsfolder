@@ -136,7 +136,7 @@ class pdfjsfolder {
 
         // Delete files associated with this pdfjsfolder.
         $fs = get_file_storage();
-        if (! $fs->delete_area_files($this->context->id) ) {
+        if (! $fs->delete_area_files($this->context->id)) {
             $result = false;
         }
 
