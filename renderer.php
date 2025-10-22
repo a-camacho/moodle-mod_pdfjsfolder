@@ -54,7 +54,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $output .= $this->output->header();
 
         // Show warning if enabled.
-        if ( $pdfjsfolder->get_instance()->showfilechangeswarning == "1" ) {
+        if ($pdfjsfolder->get_instance()->showfilechangeswarning == "1") {
             $output .= '<div class="alert alert-warning" role="alert">';
             $output .= get_string('showfilechangeswarning_text', 'pdfjsfolder');
             $output .= '</div>';

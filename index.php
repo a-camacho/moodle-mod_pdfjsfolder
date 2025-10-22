@@ -60,7 +60,7 @@ if (!$pdffolders = get_all_instances_in_course('pdfjsfolder', $course)) {
             $strpdfs
         ),
         "$CFG->wwwroot/course/view.php?id=$course->id"
-        );
+    );
     exit;
 }
 
