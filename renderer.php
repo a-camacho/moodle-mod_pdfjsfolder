@@ -265,7 +265,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                     false,
                     [
                         'preview' => 'tinyicon',
-                        'oid' => $pdf->get_timemodified()
+                        'oid' => $pdf->get_timemodified(),
                     ]
                 );
                 $image = html_writer::empty_tag(

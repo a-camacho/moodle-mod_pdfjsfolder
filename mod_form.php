@@ -85,7 +85,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
             get_string('display', 'pdfjsfolder'),
             [
                 PDFJS_FOLDER_DISPLAY_PAGE => get_string('displaypage', 'pdfjsfolder'),
-                PDFJS_FOLDER_DISPLAY_INLINE => get_string('displayinline', 'pdfjsfolder')
+                PDFJS_FOLDER_DISPLAY_INLINE => get_string('displayinline', 'pdfjsfolder'),
             ]
         );
         $mform->addHelpButton('display', 'display', 'pdfjsfolder');
