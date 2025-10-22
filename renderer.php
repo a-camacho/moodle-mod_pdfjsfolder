@@ -55,11 +55,9 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
 
         // Show warning if enabled.
         if ( $pdfjsfolder->get_instance()->showfilechangeswarning == "1" ) {
-
             $output .= '<div class="alert alert-warning" role="alert">';
             $output .= get_string('showfilechangeswarning_text', 'pdfjsfolder');
             $output .= '</div>';
-
         }
 
         $output .= $this->output->heading($name, 3);
@@ -95,7 +93,11 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $cm = $modinfo->get_cm($coursemodule->id);
 
         if (!$cm->uservisible ||
-                !has_capability('mod/pdfjsfolder:view', $context)) {
+                !has_capability(
+                    'mod/pdfjsfolder:view',
+                    $context
+                )
+            ) {
             // Module is not visible to the user. Don't throw any
             // errors in renderer, just return empty string.
             return $output;
@@ -238,7 +240,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                 $pdf->get_itemid(),
                 $pdf->get_filepath(),
                 $filename,
-                false);
+                false
+            );
 
             $fileurlforcedownload = moodle_url::make_pluginfile_url(
                 $pdf->get_contextid(),
@@ -247,7 +250,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                 $pdf->get_itemid(),
                 $pdf->get_filepath(),
                 $filename,
-                true);
+                true
+            );
 
             if (file_extension_in_typegroup($filename, 'web_image')) {
                 $image = $fileurl->out(
@@ -280,20 +284,23 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             $filelink = html_writer::link(
                 $url,
                 $fileicon . $filenamespan,
-                $linkoptions);
+                $linkoptions
+            );
 
             if (!$isimage && $showdownloadlinks) {
                 $downloadlink = html_writer::link(
                     $fileurlforcedownload,
                     get_string('downloadlinktext', 'pdfjsfolder'),
-                    $linkoptions);
+                    $linkoptions
+                );
                 $filelink .= ' ' . html_writer::tag('em', '(' . $downloadlink . ')');
             }
 
             $filespan = html_writer::tag(
                 'span',
                 $filelink,
-                ['class' => 'fp-filename-icon']);
+                ['class' => 'fp-filename-icon']
+            );
 
             $output .= html_writer::tag('li', $filespan);
         }
