@@ -249,7 +249,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                 $image = $this->output->render($icon);
 
                 $pdfjsfolderurl = new moodle_url(
-                    '/mod/pdfjsfolder/pdfjs-5.1.91-dist/web/viewer.html');
+                    '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html');
                 $url = $pdfjsfolderurl . '?file=' . $fileurl;
                 $isimage = false;
             }
