@@ -32,7 +32,7 @@ require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
 add_to_log(
-   $course->id,
+    $course->id,
    'pdfjsfolder',
    'view all',
    "index.php?id=$course->id",
@@ -53,15 +53,15 @@ $PAGE->navbar->add($strpdfs);
 echo $OUTPUT->header();
 
 if (!$pdffolders = get_all_instances_in_course('pdfjsfolder', $course)) {
-   notice(
-      get_string(
-         'thereareno',
-         'moodle',
-         $strpdfs
-      ),
-      "$CFG->wwwroot/course/view.php?id=$course->id"
-   );
-   exit;
+    notice(
+        get_string(
+            'thereareno',
+            'moodle',
+            $strpdfs
+        ),
+        "$CFG->wwwroot/course/view.php?id=$course->id"
+        );
+    exit;
 }
 
 $usesections = course_format_uses_sections($course->format);
