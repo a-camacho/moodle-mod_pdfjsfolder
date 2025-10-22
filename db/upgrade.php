@@ -36,24 +36,30 @@
  * @return bool
  */
 function xmldb_pdfjsfolder_upgrade($oldversion) {
-    global $CFG, $DB;
+    global $DB;
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
     if ($oldversion < 2025061206) {
-
         // Define field autoimport to be added to publication.
         $table = new xmldb_table('pdfjsfolder');
-
         // Conditionally launch add field showfilechangeswarning.
         $field = new xmldb_field('showfilechangeswarning');
         $field->set_attributes(XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'showfilechangeswarning');
         if (!$dbman->field_exists($table, 'showfilechangeswarning')) {
             $dbman->add_field($table, $field);
         }
-
         // Assign savepoint reached.
         upgrade_mod_savepoint(true, 2025061206, 'pdfjsfolder');
+    }
+    
+    if ($oldversion < 2025103102) {
+        $table = new xmldb_table('pdfjsfolder');
+        $field = new xmldb_field('introformat', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'intro');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        upgrade_mod_savepoint(true, 2025103102, 'pdfjsfolder');
     }
 
     // Final return of upgrade result (true, all went good) to Moodle.

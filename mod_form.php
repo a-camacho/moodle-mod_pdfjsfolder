@@ -156,7 +156,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
      * @param array $files submitted files
      * @return array eventual errors indexed by the field name
      */
-    public function validation($data, $files) {
+    public function validation($data) {
         $errors = [];
 
         // On-view completion can not work together with display

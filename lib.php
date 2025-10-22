@@ -42,44 +42,31 @@ define('PDFJS_FOLDER_DISPLAY_INLINE', 1);
  * @return mixed True if feature is supported, null if unknown
  */
 function pdfjsfolder_supports($feature) {
-    switch ($feature) {
-        case FEATURE_GRADE_HAS_GRADE:
-        return false;
-        case FEATURE_GRADE_OUTCOMES:
-        return false;
-        case FEATURE_COMPLETION_TRACKS_VIEWS:
-        return true;
-        case FEATURE_GROUPS:
-        return false;
-        case FEATURE_GROUPINGS:
-        return false;
-        case FEATURE_GROUPMEMBERSONLY:
-        return true;
-        case FEATURE_MOD_ARCHETYPE:
-        return MOD_ARCHETYPE_RESOURCE;
-        case FEATURE_MOD_INTRO:
-        return true;
-        case FEATURE_BACKUP_MOODLE2:
-        return true;
-        case FEATURE_SHOW_DESCRIPTION:
-        return true;
-        case FEATURE_MOD_PURPOSE:
-        return MOD_PURPOSE_CONTENT;
-
-        default:
-        return null;
-    }
-}
+     $features = [
+         FEATURE_GRADE_HAS_GRADE => false,
+         FEATURE_GRADE_OUTCOMES => false,
+         FEATURE_COMPLETION_TRACKS_VIEWS => true,
+         FEATURE_GROUPS => false,
+         FEATURE_GROUPINGS => false,
+         FEATURE_GROUPMEMBERSONLY => true,
+         FEATURE_MOD_ARCHETYPE => MOD_ARCHETYPE_RESOURCE,
+         FEATURE_MOD_INTRO => true,
+         FEATURE_BACKUP_MOODLE2 => true,
+         FEATURE_SHOW_DESCRIPTION => true,
+         FEATURE_MOD_PURPOSE => MOD_PURPOSE_CONTENT,
+     ];
+ 
+     return $features[$feature] ?? null;
+ }
 
 /**
  * Adds a pdfjsfolder instance.
  *
  * @param stdClass      $data   The data submitted
- * @param mod_pdfjsfolder_mod_form|null $form   The pdfjsfolder form
  *
  * @return int The instance id of the new pdfjsfolder instance
  */
-function pdfjsfolder_add_instance(stdClass $data, ?mod_pdfjsfolder_mod_form $form = null) {
+function pdfjsfolder_add_instance(stdClass $data) {
     include_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
@@ -96,10 +83,9 @@ function pdfjsfolder_add_instance(stdClass $data, ?mod_pdfjsfolder_mod_form $for
  * will update an existing instance with new data.
  *
  * @param  stdClass                         $data
- * @param  mod_pdfjsfolder_mod_form|null    $form
  * @return boolean
  */
-function pdfjsfolder_update_instance(stdClass $data, ?mod_pdfjsfolder_mod_form $form = null) {
+function pdfjsfolder_update_instance(stdClass $data) {
     include_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($data->coursemodule);
@@ -145,7 +131,7 @@ function pdfjsfolder_delete_instance($id) {
  * @param  stdClass $pdfjsfolder
  * @return mixed
  */
-function pdfjsfolder_user_outline($course, $user, $mod, $pdfjsfolder) {
+function pdfjsfolder_user_outline($user, $pdfjsfolder) {
     global $DB;
 
     $logs = $DB->get_records(
@@ -173,13 +159,11 @@ function pdfjsfolder_user_outline($course, $user, $mod, $pdfjsfolder) {
  * Prints a detailed representation of what a user has done with
  * a given particular instance of this module, for user activity reports.
  *
- * @param  stdClass $course      The current course record
  * @param  stdClass $user        The record of the user we are generating report for
- * @param  cm_info  $mod         Course module info
  * @param  stdClass $pdfjsfolder The module instance record
  * @return void Is supposed to echo directly
  */
-function pdfjsfolder_user_complete($course, $user, $mod, $pdfjsfolder) {
+function pdfjsfolder_user_complete($user, $pdfjsfolder) {
     global $DB;
 
     $logs = $DB->get_records(
@@ -225,8 +209,6 @@ function pdfjsfolder_get_extra_capabilities() {
  *                        will know about (most noticeably, an icon).
  */
 function pdfjsfolder_get_coursemodule_info($cm) {
-    global $DB;
-
     include_once(dirname(__FILE__) . '/locallib.php');
 
     $context = context_module::instance($cm->id);
@@ -281,12 +263,9 @@ function pdfjsfolder_get_post_actions() {
  * The file area 'intro' for the activity introduction field is added automatically
  * by {@link https://github.com/moodle/moodle/blob/main/lib/filebrowser/file_browser.php See get_file_info_context_module()}
  *
- * @param  stdClass $course
- * @param  stdClass $cm
- * @param  stdClass $context
  * @return array Array of [(string)filearea] => (string)description]
  */
-function pdfjsfolder_get_file_areas($course, $cm, $context) {
+function pdfjsfolder_get_file_areas() {
     return [
         'pdfs' => get_string('filearea_pdfs', 'pdfjsfolder'),
     ];
@@ -298,21 +277,16 @@ function pdfjsfolder_get_file_areas($course, $cm, $context) {
  * @param  file_browser $browser  File browser object
  * @param  array        $areas    File areas
  * @param  stdClass     $course   Course object
- * @param  stdClass     $cm       Course module
  * @param  stdClass     $context  Context module
  * @param  string       $filearea File area
- * @param  int          $itemid   Item ID
  * @param  string       $filepath File path
  * @param  string       $filename File name
  * @return file_info Instance or null if not found
  */
 function pdfjsfolder_get_file_info($browser,
     $areas,
-    $course,
-    $cm,
     $context,
     $filearea,
-    $itemid,
     $filepath,
     $filename
 ) {
@@ -378,7 +352,6 @@ function pdfjsfolder_get_file_info($browser,
  * @param  string   $filearea      The name of the file area
  * @param  array    $args          Extra arguments (itemid, path)
  * @param  bool     $forcedownload Whether or not force download
- * @param  array    $options       Additional options affecting the file serving
  * @return bool False if file not found, does not return if found -
  *              just sends the file
  */
@@ -387,10 +360,8 @@ function pdfjsfolder_pluginfile($course,
     $context,
     $filearea,
     array $args,
-    $forcedownload,
-    array $options=[]
+    $forcedownload
 ) {
-    global $CFG, $DB, $USER;
 
     include_once(dirname(__FILE__) . '/locallib.php');
 
@@ -427,11 +398,9 @@ function pdfjsfolder_pluginfile($course,
 
 /**
  * This function is used by the reset_course_userdata function in moodlelib.
- *
- * @param stdClass $data The data submitted from the reset course.
  * @return array Status array
  */
-function pdfjsfolder_reset_userdata(stdClass $data) {
+function pdfjsfolder_reset_userdata() {
     return [];
 }
 
@@ -459,7 +428,7 @@ function pdfjsfolder_cm_info_dynamic(cm_info $cm) {
  * @param cm_info $cm
  */
 function pdfjsfolder_cm_info_view(cm_info $cm) {
-    global $PAGE, $DB;
+    global $PAGE;
 
     if ($cm->uservisible
         && $cm->get_custom_data()

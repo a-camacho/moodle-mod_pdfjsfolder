@@ -47,8 +47,6 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         }
         $title = $this->page->course->shortname . ': ' . $name;
 
-        $context = context_module::instance($cm->id);
-
         // Header setup.
         $this->page->set_title($title);
         $this->page->set_heading($this->page->course->fullname);
@@ -157,14 +155,14 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                          'subdirs' => [$tree]];
 
         $openinnewtab = $pdfjsfolder->get_instance()->openinnewtab;
-        $showfilechangeswarning = $pdfjsfolder->get_instance()->showfilechangeswarning;
+        $showunsavedwarning = $pdfjsfolder->get_instance()->showfilechangeswarning;
 
         $showdownloadlinks = $pdfjsfolder->get_default_config()->showdownloadlinks;
 
         $output .= $this->htmlize_folder($tree,
                                          $toptree,
                                          $openinnewtab,
-                                         $showfilechangeswarning,
+                                         $showunsavedwarning,
                                          $showdownloadlinks);
 
         return $output;
@@ -176,14 +174,14 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param array $tree
      * @param array $dir
      * @param boolean $openinnewtab
-     * @param boolean $showfilechangeswarning
+     * @param boolean $showunsavedwarning
      * @param boolean $showdownloadlinks
      * @return string HTML
      */
     protected function htmlize_folder($tree,
                                       $dir,
                                       $openinnewtab,
-                                      $showfilechangeswarning,
+                                      $showunsavedwarning,
                                       $showdownloadlinks) {
         if (empty($dir['subdirs']) && empty($dir['files'])) {
             return '';
@@ -214,7 +212,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                 $divhtml . $this->htmlize_folder($tree,
                                                  $subdir,
                                                  $openinnewtab,
-                                                 $showfilechangeswarning,
+                                                 $showunsavedwarning,
                                                  $showdownloadlinks));
         }
 
@@ -316,11 +314,6 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $showexpanded = true;
         if (empty($pdfjsfolder->get_instance()->showexpanded)) {
             $showexpanded = false;
-        }
-
-        $showwarning = false;
-        if (!empty($pdfjsfolder->get_instance()->showwarning)) {
-            $showwarning = true;
         }
 
         $this->page->requires->js_init_call('M.mod_pdfjsfolder.init_tree',

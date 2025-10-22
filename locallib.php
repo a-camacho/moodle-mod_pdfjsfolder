@@ -68,8 +68,6 @@ class pdfjsfolder {
      *                      required.
      */
     public function __construct($coursemodulecontext, $coursemodule, $course) {
-        global $PAGE;
-
         $this->context = $coursemodulecontext;
         $this->coursemodule = $coursemodule;
         $this->course = $course;
@@ -369,8 +367,6 @@ class pdfjsfolder {
      * @return void
      */
     protected function save_files($formdata) {
-        global $DB;
-
         // Storage of files from the filemanager (pdfs).
         $options = ['subdirs' => true,
                          'maxbytes' => 0,
