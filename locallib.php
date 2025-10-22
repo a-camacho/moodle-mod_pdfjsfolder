@@ -67,7 +67,7 @@ class pdfjsfolder {
      *                      otherwise this class will load one from the context as
      *                      required.
      */
-    public function __construct($coursemodulecontext, $coursemodule, $course) {
+    public function __construct($coursemodulecontext, $coursemodule, $course){
         $this->context = $coursemodulecontext;
         $this->coursemodule = $coursemodule;
         $this->course = $course;
@@ -78,7 +78,7 @@ class pdfjsfolder {
      *
      * @param stdClass $course The course data
      */
-    public function set_course(stdClass $course) {
+    public function set_course(stdClass $course){
         $this->course = $course;
     }
 
@@ -88,7 +88,7 @@ class pdfjsfolder {
      * @param stdClass $formdata The data submitted from the form
      * @return mixed False if an error occurs or the int id of the new instance
      */
-    public function add_instance(stdClass $formdata) {
+    public function add_instance(stdClass $formdata){
         global $DB;
 
         // Add the database record.
@@ -130,13 +130,13 @@ class pdfjsfolder {
      *
      * @return bool False if an error occurs
      */
-    public function delete_instance() {
+    public function delete_instance(){
         global $DB;
         $result = true;
 
         // Delete files associated with this pdfjsfolder.
         $fs = get_file_storage();
-        if (! $fs->delete_area_files($this->context->id) ) {
+        if (! $fs->delete_area_files($this->context->id) ){
             $result = false;
         }
 
@@ -153,7 +153,7 @@ class pdfjsfolder {
      * @param stdClass $formdata The data submitted from the form
      * @return bool False if an error occurs
      */
-    public function update_instance($formdata) {
+    public function update_instance($formdata){
         global $DB;
 
         $update = new stdClass();
@@ -183,8 +183,8 @@ class pdfjsfolder {
      *
      * @return string The module name (pdfjs folder)
      */
-    protected function get_module_name() {
-        if (isset(self::$modulename)) {
+    protected function get_module_name(){
+        if (isset(self::$modulename)){
             return self::$modulename;
         }
         self::$modulename = get_string('modulename', 'pdfjsfolder');
@@ -196,8 +196,8 @@ class pdfjsfolder {
      *
      * @return string The module name plural (pdfjs folders)
      */
-    protected function get_module_name_plural() {
-        if (isset(self::$modulenameplural)) {
+    protected function get_module_name_plural(){
+        if (isset(self::$modulenameplural)){
             return self::$modulenameplural;
         }
         self::$modulenameplural = get_string('modulenameplural', 'pdfjsfolder');
@@ -209,7 +209,7 @@ class pdfjsfolder {
      *
      * @return bool
      */
-    public function has_instance() {
+    public function has_instance(){
         return $this->instance || $this->get_course_module();
     }
 
@@ -218,19 +218,19 @@ class pdfjsfolder {
      *
      * @return stdClass The settings
      */
-    public function get_instance() {
+    public function get_instance(){
         global $DB;
-        if ($this->instance) {
+        if ($this->instance){
             return $this->instance;
         }
-        if ($this->get_course_module()) {
+        if ($this->get_course_module()){
             $params = ['id' => $this->get_course_module()->instance];
             $this->instance = $DB->get_record('pdfjsfolder',
                                               $params,
                                               '*',
                                               MUST_EXIST);
         }
-        if (!$this->instance) {
+        if (!$this->instance){
             throw new coding_exception('Improper use of the pdfjsfolder class. ' .
                                        'Cannot load the pdfjsfolder record.');
         }
@@ -242,12 +242,12 @@ class pdfjsfolder {
      *
      * @return mixed context|null The course context
      */
-    public function get_course_context() {
-        if (!$this->context && !$this->course) {
+    public function get_course_context(){
+        if (!$this->context && !$this->course){
             throw new coding_exception('Improper use of the pdfjsfolder class. ' .
                                        'Cannot load the course context.');
         }
-        if ($this->context) {
+        if ($this->context){
             return $this->context->get_course_context();
         } else {
             return context_course::instance($this->course->id);
@@ -259,15 +259,15 @@ class pdfjsfolder {
      *
      * @return mixed stdClass|null The course module
      */
-    public function get_course_module() {
-        if ($this->coursemodule) {
+    public function get_course_module(){
+        if ($this->coursemodule){
             return $this->coursemodule;
         }
-        if (!$this->context) {
+        if (!$this->context){
             return null;
         }
 
-        if ($this->context->contextlevel == CONTEXT_MODULE) {
+        if ($this->context->contextlevel == CONTEXT_MODULE){
             $this->coursemodule = get_coursemodule_from_id(
                 'pdfjsfolder',
                 $this->context->instanceid,
@@ -284,8 +284,8 @@ class pdfjsfolder {
      *
      * @return mixed stdClass|boolean The default configuration
      */
-    public function get_default_config() {
-        if (!$this->defaultconfig) {
+    public function get_default_config(){
+        if (!$this->defaultconfig){
             $this->defaultconfig = get_config('pdfjsfolder');
         }
         return $this->defaultconfig;
@@ -296,7 +296,7 @@ class pdfjsfolder {
      *
      * @return context
      */
-    public function get_context() {
+    public function get_context(){
         return $this->context;
     }
 
@@ -305,14 +305,14 @@ class pdfjsfolder {
      *
      * @return mixed stdClass|null The course
      */
-    public function get_course() {
+    public function get_course(){
         global $DB;
 
-        if ($this->course) {
+        if ($this->course){
             return $this->course;
         }
 
-        if (!$this->context) {
+        if (!$this->context){
             return null;
         }
         $params = ['id' => $this->get_course_context()->instanceid];
@@ -330,11 +330,11 @@ class pdfjsfolder {
      * @param string $url The url to the pdfjsfolder module instance.
      * @return void
      */
-    public function add_to_log($action = '', $info = '', $url='') {
+    public function add_to_log($action = '', $info = '', $url=''){
         global $USER;
 
         $fullurl = 'view.php?id=' . $this->get_course_module()->id;
-        if ($url != '') {
+        if ($url != ''){
             $fullurl .= '&' . $url;
         }
 
@@ -352,10 +352,10 @@ class pdfjsfolder {
      *
      * @return pdfjsfolder_renderer
      */
-    public function get_renderer() {
+    public function get_renderer(){
         global $PAGE;
 
-        if ($this->output) {
+        if ($this->output){
             return $this->output;
         }
         $this->output = $PAGE->get_renderer('mod_pdfjsfolder');
@@ -368,13 +368,13 @@ class pdfjsfolder {
      * @param stdClass $formdata
      * @return void
      */
-    protected function save_files($formdata) {
+    protected function save_files($formdata){
         // Storage of files from the filemanager (pdfs).
         $options = ['subdirs' => true,
                          'maxbytes' => 0,
                          'maxfiles' => -1];
         $draftitemid = $formdata->pdfs;
-        if ($draftitemid) {
+        if ($draftitemid){
             file_save_draft_area_files(
                 $draftitemid,
                 $this->context->id,
