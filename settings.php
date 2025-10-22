@@ -28,7 +28,8 @@ if ($ADMIN->fulltree) {
     require_once($CFG->libdir . '/resourcelib.php');
 
     $displayoptions = resourcelib_get_displayoptions(
-        [RESOURCELIB_DISPLAY_OPEN, RESOURCELIB_DISPLAY_POPUP]);
+        [RESOURCELIB_DISPLAY_OPEN, RESOURCELIB_DISPLAY_POPUP]
+    );
     $defaultdisplayoptions = [RESOURCELIB_DISPLAY_OPEN];
 
     // Options heading.

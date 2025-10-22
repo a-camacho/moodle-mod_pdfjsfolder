@@ -357,7 +357,8 @@ function pdfjsfolder_get_file_info(
  * @return bool False if file not found, does not return if found -
  *              just sends the file
  */
-function pdfjsfolder_pluginfile($course,
+function pdfjsfolder_pluginfile(
+    $course,
     $cm,
     $context,
     $filearea,

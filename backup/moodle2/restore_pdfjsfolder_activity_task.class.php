@@ -50,7 +50,9 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
         $this->add_step(
             new restore_pdfjsfolder_activity_structure_step(
                 'pdfjsfolder_structure',
-                'pdfjsfolder.xml'));
+                'pdfjsfolder.xml'
+            )
+        );
     }
 
     /**

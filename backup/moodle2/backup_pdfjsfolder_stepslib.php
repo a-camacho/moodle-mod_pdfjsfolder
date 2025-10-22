@@ -40,8 +40,10 @@ class backup_pdfjsfolder_activity_structure_step extends backup_activity_structu
         );
 
         // Define sources.
-        $pdfjsfolder->set_source_table('pdfjsfolder',
-                                 ['id' => backup::VAR_ACTIVITYID]);
+        $pdfjsfolder->set_source_table(
+            'pdfjsfolder',
+            ['id' => backup::VAR_ACTIVITYID]
+        );
 
         // Define file annotations.
         $pdfjsfolder->annotate_files('mod_pdfjsfolder', 'intro', null);
