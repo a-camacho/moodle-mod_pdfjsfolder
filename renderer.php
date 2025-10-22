@@ -263,8 +263,11 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             if (file_extension_in_typegroup($filename, 'web_image')) {
                 $image = $fileurl->out(
                     false,
-                    ['preview' => 'tinyicon',
-                          'oid' => $pdf->get_timemodified()]);
+                    [
+                        'preview' => 'tinyicon',
+                        'oid' => $pdf->get_timemodified()
+                    ]
+                );
                 $image = html_writer::empty_tag(
                     'img',
                     ['src' => $image]
@@ -272,10 +275,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                 $url = $fileurl;
                 $isimage = true;
             } else {
-                $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle'
-            );
+                $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle');
                 $image = $this->output->render($icon);
-
                 $pdfjsfolderurl = new moodle_url(
                     '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html'
                 );
@@ -290,9 +291,15 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             }
 
             $fileicon = html_writer::tag(
-                'span', $image, ['class' => 'fp-icon']);
+                'span',
+                $image,
+                ['class' => 'fp-icon']
+            );
             $filenamespan = html_writer::tag(
-                'span', $filename, ['class' => 'fp-filename']);
+                'span',
+                $filename,
+                ['class' => 'fp-filename']
+            );
             $filelink = html_writer::link(
                 $url,
                 $fileicon . $filenamespan,
