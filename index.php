@@ -33,10 +33,10 @@ $PAGE->set_pagelayout('incourse');
 
 add_to_log(
     $course->id,
-   'pdfjsfolder',
-   'view all',
-   "index.php?id=$course->id",
-   ''
+    'pdfjsfolder',
+    'view all',
+    "index.php?id=$course->id",
+    ''
 );
 
 $strpdf = get_string('modulename', 'pdfjsfolder');

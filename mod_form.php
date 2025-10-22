@@ -51,23 +51,29 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         $mform =& $this->_form;
 
         // Name and description fields.
-        $mform->addElement('header',
-                           'general',
-                           get_string('general', 'form'));
-        $mform->addElement('text',
-                           'name',
-                           get_string('name'), ['size' => '48']);
+        $mform->addElement(
+            'header',
+            'general',
+            get_string('general', 'form')
+        );
+        $mform->addElement(
+            'text',
+            'name',
+            get_string('name'), ['size' => '48']
+        );
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
             $mform->setType('name', PARAM_CLEANHTML);
         }
         $mform->addRule('name', null, 'required', null, 'client');
-        $mform->addRule('name',
-                        get_string('maximumchars', '', 255),
-                        'maxlength',
-                        255,
-                        'client');
+        $mform->addRule(
+            'name',
+            get_string('maximumchars', '', 255),
+            'maxlength',
+            255,
+            'client'
+        );
 
         $this->standard_intro_elements();
 
@@ -81,30 +87,38 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         $mform->addHelpButton('display', 'display', 'pdfjsfolder');
 
         // Option for showing or not warning about file changes storage.
-        $mform->addElement('advcheckbox',
-                           'showfilechangeswarning',
-                           get_string('showfilechangeswarning', 'pdfjsfolder'));
+        $mform->addElement(
+            'advcheckbox',
+            'showfilechangeswarning',
+            get_string('showfilechangeswarning', 'pdfjsfolder')
+        );
         $mform->addHelpButton('showfilechangeswarning', 'showfilechangeswarning', 'pdfjsfolder');
         $mform->setDefault('showfilechangeswarning', $config->showfilechangeswarning);
 
         // Option for showing sub-folders expanded or collapsed.
-        $mform->addElement('advcheckbox',
-                           'showexpanded',
-                           get_string('showexpanded', 'pdfjsfolder'));
+        $mform->addElement(
+            'advcheckbox',
+            'showexpanded',
+            get_string('showexpanded', 'pdfjsfolder')
+        );
         $mform->addHelpButton('showexpanded', 'showexpanded', 'pdfjsfolder');
         $mform->setDefault('showexpanded', $config->showexpanded);
 
         // Option for opening PDFs in new tabs or windows.
-        $mform->addElement('advcheckbox',
-                           'openinnewtab',
-                           get_string('openinnewtab', 'pdfjsfolder'));
+        $mform->addElement(
+            'advcheckbox',
+            'openinnewtab',
+            get_string('openinnewtab', 'pdfjsfolder')
+        );
         $mform->addHelpButton('openinnewtab', 'openinnewtab', 'pdfjsfolder');
         $mform->setDefault('openinnewtab', $config->openinnewtab);
 
         // Folder fields.
-        $mform->addElement('header',
-                           'pdf_fieldset',
-                           get_string('pdf_fieldset', 'pdfjsfolder'));
+        $mform->addElement(
+            'header',
+            'pdf_fieldset',
+            get_string('pdf_fieldset', 'pdfjsfolder')
+        );
 
         // Folder file manager.
         $options = ['subdirs' => true,
@@ -161,12 +175,14 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
 
         // On-view completion can not work together with display
         // inline option.
-        if (empty($errors['completion']) &&
-                array_key_exists('completion', $data) &&
-                $data['completion'] == COMPLETION_TRACKING_AUTOMATIC &&
-                !empty($data['completionview']) &&
-                $data['display'] == PDFJS_FOLDER_DISPLAY_INLINE) {
-            $errors['completion'] = get_string('noautocompletioninline', 'pdfjsfolder');
+        if (
+            empty($errors['completion']) &&
+            array_key_exists('completion', $data) &&
+            $data['completion'] == COMPLETION_TRACKING_AUTOMATIC &&
+            !empty($data['completionview']) &&
+            $data['display'] == PDFJS_FOLDER_DISPLAY_INLINE)
+        {
+                $errors['completion'] = get_string('noautocompletioninline', 'pdfjsfolder');
         }
 
         return $errors;
