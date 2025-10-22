@@ -26,7 +26,6 @@
  * Structure step to restore one pdfjsfolder activity.
  */
 class restore_pdfjsfolder_activity_structure_step extends restore_activity_structure_step {
-
     /**
      * Defines the backup structure.
      *
@@ -34,8 +33,10 @@ class restore_pdfjsfolder_activity_structure_step extends restore_activity_struc
      */
     protected function define_structure() {
         $paths = [];
-        $paths[] = new restore_path_element('pdfjsfolder',
-                                            '/activity/pdfjsfolder');
+        $paths[] = new restore_path_element(
+            'pdfjsfolder',
+            '/activity/pdfjsfolder'
+        );
 
         // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);

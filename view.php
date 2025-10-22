@@ -38,11 +38,12 @@ require_capability('mod/pdfjsfolder:view', $context);
 // Redirect to course section if trying to view inline folder.
 if ($pdfjsfolder->get_instance()->display == PDFJS_FOLDER_DISPLAY_INLINE) {
     // Get sectionid for fragment id section references to work.
-    $sectionid = $DB->get_field('course_sections',
-                                'section',
-                                ['id' => $cm->section,
-                                      'course' => $course->id],
-                                MUST_EXIST);
+    $sectionid = $DB->get_field(
+        'course_sections',
+        'section',
+        ['id' => $cm->section, 'course' => $course->id],
+        MUST_EXIST
+    );
     redirect(course_get_url($course, $sectionid));
 }
 

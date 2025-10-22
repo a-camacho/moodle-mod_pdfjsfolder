@@ -32,7 +32,6 @@ require_once($CFG->dirroot .
  * instance.
  */
 class backup_pdfjsfolder_activity_task extends backup_activity_task {
-
     /**
      * Define (add) particular settings this activity can have.
      */
@@ -50,7 +49,9 @@ class backup_pdfjsfolder_activity_task extends backup_activity_task {
         $this->add_step(
             new backup_pdfjsfolder_activity_structure_step(
                 'pdfjsfolder_structure',
-                'pdfjsfolder.xml'));
+                'pdfjsfolder.xml'
+            )
+        );
     }
 
     /**
