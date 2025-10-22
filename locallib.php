@@ -107,10 +107,10 @@ class pdfjsfolder {
 
         $returnid = $DB->insert_record('pdfjsfolder', $add);
         $this->instance = $DB->get_record(
-                'pdfjsfolder',
-                ['id' => $returnid],
-                '*',
-                MUST_EXIST
+            'pdfjsfolder',
+            ['id' => $returnid],
+            '*',
+            MUST_EXIST
         );
         $this->save_files($formdata);
 

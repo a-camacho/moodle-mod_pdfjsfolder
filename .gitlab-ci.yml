@@ -38,7 +38,8 @@ variables:
   parallel:
     matrix:
       - MOODLE_BRANCH: [ "MOODLE_500_STABLE" ]
-        PHP_VERSION: [ "8.2", "8.4" ]
+        PHP_VERSION: [ "8.2" ]
+      #   PHP_VERSION: [ "8.2", "8.4" ]
       # - MOODLE_BRANCH: [ "MOODLE_501_STABLE" ]
       #   PHP_VERSION: [ "8.2", "8.4" ]
 
