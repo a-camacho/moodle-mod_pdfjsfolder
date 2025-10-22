@@ -92,20 +92,23 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $modinfo = get_fast_modinfo($course);
         $cm = $modinfo->get_cm($coursemodule->id);
 
-        if (!$cm->uservisible ||
-                !has_capability(
-                    'mod/pdfjsfolder:view',
-                    $context
-                )
-            ) {
+        if (
+            !$cm->uservisible ||
+            !has_capability(
+                'mod/pdfjsfolder:view',
+                $context
+            )
+        ) {
             // Module is not visible to the user. Don't throw any
             // errors in renderer, just return empty string.
             return $output;
         }
 
-        if ($instance->display == PDFJS_FOLDER_DISPLAY_INLINE &&
-                $cm->showdescription &&
-                !empty($instance->intro)) {
+        if (
+            $instance->display == PDFJS_FOLDER_DISPLAY_INLINE &&
+            $cm->showdescription &&
+            !empty($instance->intro)
+        ) {
             $output .= format_module_intro(
                 'pdfjsfolder',
                 $instance,
@@ -153,8 +156,10 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      */
     protected function get_pdf_folder_html(pdfjsfolder $pdfjsfolder, cm_info $cm) {
         $output = '';
-        $tree = $this->util_get_area_tree($pdfjsfolder->get_context()->id,
-                                          'pdfs');
+        $tree = $this->util_get_area_tree(
+            $pdfjsfolder->get_context()->id,
+            'pdfs'
+        );
 
         $tree['dirname'] = $cm->name;
         $toptree = ['files' => [], 'subdirs' => [$tree]];
@@ -199,9 +204,11 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $output = '<ul>';
 
         foreach ($dir['subdirs'] as $subdir) {
-            $icon = new pix_icon(file_folder_icon(),
-                                 $subdir['dirname'],
-                                 'moodle');
+            $icon = new pix_icon(
+                file_folder_icon(),
+                $subdir['dirname'],
+                'moodle'
+            );
             $imagehtml = $this->output->render($icon);
             $iconhtml = html_writer::tag(
                 'span',
@@ -215,7 +222,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             );
             $divhtml = html_writer::tag(
                 'div',
-                $iconhtml . $namehtml ,
+                $iconhtml . $namehtml,
                 ['class' => 'fp-filename-icon']
             );
 
@@ -258,15 +265,20 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                     false,
                     ['preview' => 'tinyicon',
                           'oid' => $pdf->get_timemodified()]);
-                $image = html_writer::empty_tag('img', ['src' => $image]);
+                $image = html_writer::empty_tag(
+                    'img',
+                    ['src' => $image]
+                );
                 $url = $fileurl;
                 $isimage = true;
             } else {
-                $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle');
+                $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle'
+            );
                 $image = $this->output->render($icon);
 
                 $pdfjsfolderurl = new moodle_url(
-                    '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html');
+                    '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html'
+                );
                 $url = $pdfjsfolderurl . '?file=' . $fileurl;
                 $isimage = false;
             }
