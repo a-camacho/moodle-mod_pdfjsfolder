@@ -174,7 +174,6 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
      * Validates the form input.
      *
      * @param array $data submitted data
-     * @param array $files submitted files
      * @return array eventual errors indexed by the field name
      */
     public function validation($data) {

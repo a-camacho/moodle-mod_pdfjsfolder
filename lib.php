@@ -125,9 +125,7 @@ function pdfjsfolder_delete_instance($id) {
  *
  * Used for user activity reports.
  *
- * @param  stdClass $course
  * @param  stdClass $user
- * @param  stdClass $mod
  * @param  stdClass $pdfjsfolder
  * @return mixed
  */
@@ -276,7 +274,6 @@ function pdfjsfolder_get_file_areas() {
  *
  * @param  file_browser $browser  File browser object
  * @param  array        $areas    File areas
- * @param  stdClass     $course   Course object
  * @param  stdClass     $context  Context module
  * @param  string       $filearea File area
  * @param  string       $filepath File path
