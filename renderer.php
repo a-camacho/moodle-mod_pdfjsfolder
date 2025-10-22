@@ -104,10 +104,12 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         if ($instance->display == PDFJS_FOLDER_DISPLAY_INLINE &&
                 $cm->showdescription &&
                 !empty($instance->intro)) {
-            $output .= format_module_intro('pdfjsfolder',
-                                           $instance,
-                                           $cm->id,
-                                           false);
+            $output .= format_module_intro(
+                'pdfjsfolder',
+                $instance,
+                $cm->id,
+                false
+            );
         }
 
         if ($instance->display != PDFJS_FOLDER_DISPLAY_INLINE) {
@@ -132,10 +134,12 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      */
     private function util_get_area_tree($contextid, $areaname) {
         $fs = get_file_storage();
-        return $fs->get_area_tree($contextid,
-                                  'mod_pdfjsfolder',
-                                  $areaname,
-                                  false);
+        return $fs->get_area_tree(
+            $contextid,
+            'mod_pdfjsfolder',
+            $areaname,
+            false
+        );
     }
 
     /**
@@ -151,19 +155,20 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                                           'pdfs');
 
         $tree['dirname'] = $cm->name;
-        $toptree = ['files' => [],
-                         'subdirs' => [$tree]];
+        $toptree = ['files' => [], 'subdirs' => [$tree]];
 
         $openinnewtab = $pdfjsfolder->get_instance()->openinnewtab;
         $showunsavedwarning = $pdfjsfolder->get_instance()->showfilechangeswarning;
 
         $showdownloadlinks = $pdfjsfolder->get_default_config()->showdownloadlinks;
 
-        $output .= $this->htmlize_folder($tree,
-                                         $toptree,
-                                         $openinnewtab,
-                                         $showunsavedwarning,
-                                         $showdownloadlinks);
+        $output .= $this->htmlize_folder(
+            $tree,
+            $toptree,
+            $openinnewtab,
+            $showunsavedwarning,
+            $showdownloadlinks
+        );
 
         return $output;
     }
@@ -178,11 +183,13 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param boolean $showdownloadlinks
      * @return string HTML
      */
-    protected function htmlize_folder($tree,
-                                      $dir,
-                                      $openinnewtab,
-                                      $showunsavedwarning,
-                                      $showdownloadlinks) {
+    protected function htmlize_folder(
+        $tree,
+        $dir,
+        $openinnewtab,
+        $showunsavedwarning,
+        $showdownloadlinks
+    ) {
         if (empty($dir['subdirs']) && empty($dir['files'])) {
             return '';
         }
@@ -209,11 +216,14 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
 
             $output .= html_writer::tag(
                 'li',
-                $divhtml . $this->htmlize_folder($tree,
-                                                 $subdir,
-                                                 $openinnewtab,
-                                                 $showunsavedwarning,
-                                                 $showdownloadlinks));
+                $divhtml . $this->htmlize_folder(
+                    $tree,
+                    $subdir,
+                    $openinnewtab,
+                    $showunsavedwarning,
+                    $showdownloadlinks
+                )
+            );
         }
 
         foreach ($dir['files'] as $pdf) {
