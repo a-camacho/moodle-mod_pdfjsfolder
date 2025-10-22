@@ -61,9 +61,11 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
      */
     public static function define_decode_contents() {
         $contents = [];
-        $contents[] = new restore_decode_content('pdfjsfolder',
-                                                 ['intro'],
-                                                 'pdfjsfolder');
+        $contents[] = new restore_decode_content(
+            'pdfjsfolder',
+            ['intro'],
+            'pdfjsfolder'
+        );
         return $contents;
     }
 
@@ -75,12 +77,16 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
      */
     public static function define_decode_rules() {
         $rules = [];
-        $rules[] = new restore_decode_rule('PDFJSFOLDERVIEWBYID',
-                                           '/mod/pdfjsfolder/view.php?id=$1',
-                                           'course_module');
-        $rules[] = new restore_decode_rule('PDFJSFOLDERINDEX',
-                                           '/mod/pdfjsfolder/index.php?id=$1',
-                                           'course');
+        $rules[] = new restore_decode_rule(
+            'PDFJSFOLDERVIEWBYID',
+            '/mod/pdfjsfolder/view.php?id=$1',
+            'course_module'
+        );
+        $rules[] = new restore_decode_rule(
+            'PDFJSFOLDERINDEX',
+            '/mod/pdfjsfolder/index.php?id=$1',
+            'course'
+        );
         return $rules;
     }
 
@@ -94,18 +100,24 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
      */
     public static function define_restore_log_rules() {
         $rules = [];
-        $rules[] = new restore_log_rule('pdfjsfolder',
-                                        'add',
-                                        'view.php?id={course_module}',
-                                        '{pdfjsfolder}');
-        $rules[] = new restore_log_rule('pdfjsfolder',
-                                        'update',
-                                        'view.php?id={course_module}',
-                                        '{pdfjsfolder}');
-        $rules[] = new restore_log_rule('pdfjsfolder',
-                                        'view',
-                                        'view.php?id={course_module}',
-                                        '{pdfjsfolder}');
+        $rules[] = new restore_log_rule(
+            'pdfjsfolder',
+            'add',
+            'view.php?id={course_module}',
+            '{pdfjsfolder}'
+        );
+        $rules[] = new restore_log_rule(
+            'pdfjsfolder',
+            'update',
+            'view.php?id={course_module}',
+            '{pdfjsfolder}'
+        );
+        $rules[] = new restore_log_rule(
+            'pdfjsfolder',
+            'view',
+            'view.php?id={course_module}',
+            '{pdfjsfolder}'
+        );
         return $rules;
     }
 
@@ -122,10 +134,12 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
      */
     public static function define_restore_log_rules_for_course() {
         $rules = [];
-        $rules[] = new restore_log_rule('pdfjsfolder',
-                                        'view all',
-                                        'index.php?id={course}',
-                                        null);
+        $rules[] = new restore_log_rule(
+            'pdfjsfolder',
+            'view all',
+            'index.php?id={course}',
+            null
+        );
         return $rules;
     }
 }

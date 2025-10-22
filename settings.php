@@ -33,41 +33,59 @@ if ($ADMIN->fulltree) {
 
     // Options heading.
     $settings->add(
-        new admin_setting_heading('pdfjsfolder_options',
-                                  get_string('pdfjsfolder_options_heading', 'pdfjsfolder'),
-                                  get_string('pdfjsfolder_options_text', 'pdfjsfolder')));
+        new admin_setting_heading(
+            'pdfjsfolder_options',
+            get_string('pdfjsfolder_options_heading', 'pdfjsfolder'),
+            get_string('pdfjsfolder_options_text', 'pdfjsfolder')
+        )
+    );
 
     // Flag for whether to show download links or not.
     $settings->add(
-        new admin_setting_configcheckbox('pdfjsfolder/showdownloadlinks',
-                                         get_string('showdownloadlinks', 'pdfjsfolder'),
-                                         get_string('showdownloadlinks_help', 'pdfjsfolder'),
-                                         1));
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/showdownloadlinks',
+            get_string('showdownloadlinks', 'pdfjsfolder'),
+            get_string('showdownloadlinks_help', 'pdfjsfolder'),
+            1
+        )
+    );
 
     // Defaults heading.
     $settings->add(
-        new admin_setting_heading('pdfjsfolder_defaults',
-                                  get_string('pdfjsfolder_defaults_heading', 'pdfjsfolder'),
-                                  get_string('pdfjsfolder_defaults_text', 'pdfjsfolder')));
+        new admin_setting_heading(
+            'pdfjsfolder_defaults',
+            get_string('pdfjsfolder_defaults_heading', 'pdfjsfolder'),
+            get_string('pdfjsfolder_defaults_text', 'pdfjsfolder')
+        )
+    );
 
     // Default hide warning message about file editing storage.
     $settings->add(
-        new admin_setting_configcheckbox('pdfjsfolder/showfilechangeswarning',
-                                         get_string('showfilechangeswarning', 'pdfjsfolder'),
-                                         get_string('showfilechangeswarning_help', 'pdfjsfolder'),
-                                         0));
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/showfilechangeswarning',
+            get_string('showfilechangeswarning', 'pdfjsfolder'),
+            get_string('showfilechangeswarning_help', 'pdfjsfolder'),
+            0
+        )
+    );
 
     // Default show expanded flag.
     $settings->add(
-        new admin_setting_configcheckbox('pdfjsfolder/showexpanded',
-                                         get_string('showexpanded', 'pdfjsfolder'),
-                                         get_string('showexpanded_help', 'pdfjsfolder'),
-                                         1));
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/showexpanded',
+            get_string('showexpanded', 'pdfjsfolder'),
+            get_string('showexpanded_help', 'pdfjsfolder'),
+            1
+        )
+    );
 
     // Default open in new window/tab flag.
     $settings->add(
-        new admin_setting_configcheckbox('pdfjsfolder/openinnewtab',
-                                         get_string('openinnewtab', 'pdfjsfolder'),
-                                         get_string('openinnewtab_help', 'pdfjsfolder'),
-                                         1));
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/openinnewtab',
+            get_string('openinnewtab', 'pdfjsfolder'),
+            get_string('openinnewtab_help', 'pdfjsfolder'),
+            1
+        )
+    );
 }

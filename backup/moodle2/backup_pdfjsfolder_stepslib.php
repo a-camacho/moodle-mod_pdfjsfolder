@@ -28,7 +28,6 @@
  * and id annotations.
  */
 class backup_pdfjsfolder_activity_structure_step extends backup_activity_structure_step {
-
     /**
      * Define structure function.
      */
@@ -37,7 +36,8 @@ class backup_pdfjsfolder_activity_structure_step extends backup_activity_structu
         $pdfjsfolder = new backup_nested_element(
             'pdfjsfolder',
             ['id'],
-            ['name', 'intro', 'introformat', 'timecreated', 'timemodified']);
+            ['name', 'intro', 'introformat', 'timecreated', 'timemodified']
+        );
 
         // Define sources.
         $pdfjsfolder->set_source_table('pdfjsfolder',
