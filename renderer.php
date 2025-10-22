@@ -204,15 +204,18 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             $iconhtml = html_writer::tag(
                 'span',
                 $imagehtml,
-                ['class' => 'fp-icon']);
+                ['class' => 'fp-icon']
+            );
             $namehtml = html_writer::tag(
                 'span',
                 s($subdir['dirname']),
-                ['class' => 'fp-filename']);
+                ['class' => 'fp-filename']
+            );
             $divhtml = html_writer::tag(
                 'div',
                 $iconhtml . $namehtml ,
-                ['class' => 'fp-filename-icon']);
+                ['class' => 'fp-filename-icon']
+            );
 
             $output .= html_writer::tag(
                 'li',
@@ -312,11 +315,16 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
 
         // Open folder div.
         $id = 'pdfjs_folder_' . ($treecounter++);
-        $output .= $this->output->container_start('pdfjs-folder filemanager',
-                                                  $id);
+        $output .= $this->output->container_start(
+            'pdfjs-folder filemanager',
+            $id
+        );
 
         // Elements for folder.
-        $output .= $this->get_pdf_folder_html($pdfjsfolder, $cm);
+        $output .= $this->get_pdf_folder_html(
+            $pdfjsfolder,
+            $cm
+        );
 
         // Close folder div.
         $output .= $this->output->container_end();
@@ -326,8 +334,10 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             $showexpanded = false;
         }
 
-        $this->page->requires->js_init_call('M.mod_pdfjsfolder.init_tree',
-                                            [$id, $showexpanded]);
+        $this->page->requires->js_init_call(
+            'M.mod_pdfjsfolder.init_tree',
+            [$id, $showexpanded]
+        );
         return $output;
     }
 }
