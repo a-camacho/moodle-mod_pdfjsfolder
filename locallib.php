@@ -339,12 +339,13 @@ class pdfjsfolder {
         }
 
         add_to_log($this->get_course()->id,
-                   'pdfjsfolder',
-                   $action,
-                   $fullurl,
-                   $info,
-                   $this->get_course_module()->id,
-                   $USER->id);
+           'pdfjsfolder',
+           $action,
+           $fullurl,
+           $info,
+           $this->get_course_module()->id,
+           $USER->id
+        );
     }
 
     /**
@@ -370,9 +371,11 @@ class pdfjsfolder {
      */
     protected function save_files($formdata){
         // Storage of files from the filemanager (pdfs).
-        $options = ['subdirs' => true,
-                         'maxbytes' => 0,
-                         'maxfiles' => -1];
+        $options = [
+            'subdirs' => true,
+            'maxbytes' => 0,
+            'maxfiles' => -1
+        ];
         $draftitemid = $formdata->pdfs;
         if ($draftitemid){
             file_save_draft_area_files(

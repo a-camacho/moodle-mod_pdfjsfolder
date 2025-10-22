@@ -31,17 +31,19 @@ $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
 require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
-add_to_log($course->id,
-           'pdfjsfolder',
-           'view all',
-           "index.php?id=$course->id",
-           '');
+add_to_log(
+    $course->id,
+   'pdfjsfolder',
+   'view all',
+   "index.php?id=$course->id",
+   ''
+);
 
-$strpdf          = get_string('modulename', 'pdfjsfolder');
-$strpdfs         = get_string('modulenameplural', 'pdfjsfolder');
-$strsectionname  = get_string('sectionname', 'format_'.$course->format);
-$strname         = get_string('name');
-$strintro        = get_string('moduleintro');
+$strpdf = get_string('modulename', 'pdfjsfolder');
+$strpdfs = get_string('modulenameplural', 'pdfjsfolder');
+$strsectionname = get_string('sectionname', 'format_'.$course->format);
+$strname = get_string('name');
+$strintro = get_string('moduleintro');
 $strlastmodified = get_string('lastmodified');
 
 $PAGE->set_url('/mod/pdfjsfolder/index.php', ['id' => $course->id]);
@@ -50,11 +52,15 @@ $PAGE->set_heading($course->fullname);
 $PAGE->navbar->add($strpdfs);
 echo $OUTPUT->header();
 
-if (!$pdffolders = get_all_instances_in_course('pdfjsfolder', $course)) {
-    notice(get_string('thereareno',
-                      'moodle',
-                      $strpdfs),
-           "$CFG->wwwroot/course/view.php?id=$course->id");
+if (!$pdffolders = get_all_instances_in_course('pdfjsfolder', $course)){
+    notice(
+        get_string(
+            'thereareno',
+            'moodle',
+            $strpdfs
+            ),
+        "$CFG->wwwroot/course/view.php?id=$course->id"
+    );
     exit;
 }
 
@@ -63,25 +69,25 @@ $usesections = course_format_uses_sections($course->format);
 $table = new html_table();
 $table->attributes['class'] = 'generaltable mod_index';
 
-if ($usesections) {
-    $table->head  = [$strsectionname, $strname, $strintro];
+if ($usesections){
+    $table->head = [$strsectionname, $strname, $strintro];
     $table->align = ['center', 'left', 'left'];
 } else {
-    $table->head  = [$strlastmodified, $strname, $strintro];
+    $table->head = [$strlastmodified, $strname, $strintro];
     $table->align = ['left', 'left', 'left'];
 }
 
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
-foreach ($pdffolders as $pdffolder) {
+foreach ($pdffolders as $pdffolder){
     $cm = $modinfo->cms[$pdffolder->coursemodule];
-    if ($usesections) {
+    if ($usesections){
         $printsection = '';
-        if ($pdffolder->section !== $currentsection) {
-            if ($pdffolder->section) {
+        if ($pdffolder->section !== $currentsection){
+            if ($pdffolder->section){
                 $printsection = get_section_name($course, $pdffolder->section);
             }
-            if ($currentsection !== '') {
+            if ($currentsection !== ''){
                 $table->data[] = 'hr';
             }
             $currentsection = $pdffolder->section;
@@ -92,7 +98,7 @@ foreach ($pdffolders as $pdffolder) {
 
     $extra = empty($cm->extra) ? '' : $cm->extra;
     $icon = '';
-    if (!empty($cm->icon)) {
+    if (!empty($cm->icon)){
         $icon = '<img src="' . $OUTPUT->pix_url($cm->icon) .
                 '" class="activityicon" alt="' .
                 get_string('modulename', $cm->modname) . '" /> ';
