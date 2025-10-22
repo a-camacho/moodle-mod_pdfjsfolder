@@ -182,7 +182,7 @@ function pdfjsfolder_user_complete($user, $pdfjsfolder) {
         $strmostrecently = get_string('mostrecently');
         $strnumviews = get_string('numviews', '', $numviews);
 
-        echo "$strnumviews - $strmostrecently ".userdate($lastlog->time);
+        echo "$strnumviews - $strmostrecently " . userdate($lastlog->time);
     } else {
         print_string('neverseen', 'pdfjsfolder');
     }
@@ -283,7 +283,8 @@ function pdfjsfolder_get_file_areas() {
  * @param  string       $filename File name
  * @return file_info Instance or null if not found
  */
-function pdfjsfolder_get_file_info($browser,
+function pdfjsfolder_get_file_info(
+    $browser,
     $areas,
     $context,
     $filearea,
@@ -312,13 +313,13 @@ function pdfjsfolder_get_file_info($browser,
         $filename = is_null($filename) ? '.' : $filename;
 
         if (!$storedfile = $fs->get_file(
-            $context->id,
-            'mod_pdfjsfolder',
-            $filearea,
-            0,
-            $filepath,
-            $filename
-        )
+                $context->id,
+                'mod_pdfjsfolder',
+                $filearea,
+                0,
+                $filepath,
+                $filename
+            )
         ) {
             // Not found.
             return null;
