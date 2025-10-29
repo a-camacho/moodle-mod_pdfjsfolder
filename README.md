@@ -1,6 +1,6 @@
 [![Moodle Plugin CI](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/actions/workflows/moodle-plugin-ci.yml)
 [![PHP Support](https://img.shields.io/badge/php-8.1_--_8.4-blue)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/actions)
-[![Moodle Support](https://img.shields.io/badge/Moodle-4.5--5.0-orange)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/actions)
+[![Moodle Support](https://img.shields.io/badge/Moodle-4.5--5.1-orange)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/actions)
 [![License GPL-3.0](https://img.shields.io/github/license/acamacho-unige/moodle-mod_pdfjsfolder?color=lightgrey)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/acamacho-unige/moodle-mod_pdfjsfolder)](https://github.com/acamacho-unige/moodle-mod_pdfjsfolder/graphs/contributors)
 
