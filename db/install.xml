@@ -14,8 +14,9 @@
         <FIELD NAME="display" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Display type of folder contents - on a separate page or inline" PREVIOUS="introformat" NEXT="showexpanded"/>
         <FIELD NAME="showexpanded" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = expanded, 0 = collapsed for sub-folders" PREVIOUS="display" NEXT="showexpanded"/>
         <FIELD NAME="openinnewtab" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = opens in new tab, 0 = opens in existing tab" PREVIOUS="showexpanded" NEXT="openinnewtab"/>
-        <FIELD NAME="showfilechangeswarning" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="1 = show warning, 0 = hide warning" PREVIOUS="openinnewtab" NEXT="timecreated"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="showfilechangeswarning" NEXT="timemodified"/>
+        <FIELD NAME="showfilechangeswarning" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="1 = show warning, 0 = hide warning" PREVIOUS="openinnewtab" NEXT="uselegacyviewer"/>
+        <FIELD NAME="uselegacyviewer" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="1 = use legacy viewer, 0 = use modern viewer" PREVIOUS="showfilechangeswarning" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="uselegacyviewer" NEXT="timemodified"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated"/>
       </FIELDS>
       <KEYS>

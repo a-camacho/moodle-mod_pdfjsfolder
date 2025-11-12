@@ -103,6 +103,7 @@ class pdfjsfolder {
         $add->display = $formdata->display;
         $add->showexpanded = $formdata->showexpanded;
         $add->showfilechangeswarning = $formdata->showfilechangeswarning;
+        $add->uselegacyviewer = $formdata->uselegacyviewer;
         $add->openinnewtab = $formdata->openinnewtab;
 
         $returnid = $DB->insert_record('pdfjsfolder', $add);
@@ -165,6 +166,7 @@ class pdfjsfolder {
         $update->introformat = $formdata->introformat;
         $update->display = $formdata->display;
         $update->showexpanded = $formdata->showexpanded;
+        $update->uselegacyviewer = $formdata->uselegacyviewer;
         $update->showfilechangeswarning = $formdata->showfilechangeswarning;
         $update->openinnewtab = $formdata->openinnewtab;
 

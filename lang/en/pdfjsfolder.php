@@ -57,6 +57,9 @@ $string['downloadlinktext'] = 'download';
 $string['noautocompletioninline'] = 'Automatic completion on viewing of activity can not be selected together with "Display inline" option.';
 $string['showexpanded'] = 'Show sub-folders expanded';
 $string['showexpanded_help'] = 'If enabled, will display sub-folders expanded by default. Else, sub-folders will display collapsed.';
+$string['uselegacyviewer'] = 'Use legacy PDF.js viewer';
+$string['uselegacyviewer_help'] = 'If enabled, will use the legacy PDF.js viewer. Else, modern PDF.js viewer will be used. The legacy viewer is needed when using old browser versions that have trouble displaying PDF files using the modern PDF.js viewer.';
+
 $string['openinnewtab'] = 'Open PDFs in new tabs/windows';
 $string['openinnewtab_help'] = 'If enabled, PDFs will open in new tabs or windows rather than in the current tab or window.';
 $string['showfilechangeswarning'] = 'Show warning about file changes';

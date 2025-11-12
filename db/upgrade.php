@@ -61,6 +61,15 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
         }
         upgrade_mod_savepoint(true, 2025103102, 'pdfjsfolder');
     }
+    
+    if ($oldversion < 2025111201) {
+        $table = new xmldb_table('pdfjsfolder');
+        $field = new xmldb_field('uselegacyviewer', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'showfilechangeswarning');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        upgrade_mod_savepoint(true, 2025111201, 'pdfjsfolder');
+    }
 
     // Final return of upgrade result (true, all went good) to Moodle.
     return true;

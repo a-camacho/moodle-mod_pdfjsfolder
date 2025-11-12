@@ -69,6 +69,16 @@ if ($ADMIN->fulltree) {
             0
         )
     );
+    
+    // Default use legacy viewer
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/uselegacyviewer',
+            get_string('uselegacyviewer', 'pdfjsfolder'),
+            get_string('uselegacyviewer_help', 'pdfjsfolder'),
+            1
+        )
+    );
 
     // Default show expanded flag.
     $settings->add(
@@ -76,6 +86,16 @@ if ($ADMIN->fulltree) {
             'pdfjsfolder/showexpanded',
             get_string('showexpanded', 'pdfjsfolder'),
             get_string('showexpanded_help', 'pdfjsfolder'),
+            1
+        )
+    );
+    
+    // Default use legacy viewer.
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'pdfjsfolder/uselegacyviewer',
+            get_string('uselegacyviewer', 'pdfjsfolder'),
+            get_string('uselegacyviewer_help', 'pdfjsfolder'),
             1
         )
     );

@@ -166,6 +166,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
 
         $openinnewtab = $pdfjsfolder->get_instance()->openinnewtab;
         $showunsavedwarning = $pdfjsfolder->get_instance()->showfilechangeswarning;
+        $uselegacyviewer = $pdfjsfolder->get_instance()->uselegacyviewer;
+        $uselegacyviewer = $pdfjsfolder->get_instance()->uselegacyviewer;
 
         $showdownloadlinks = $pdfjsfolder->get_default_config()->showdownloadlinks;
 
@@ -174,6 +176,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             $toptree,
             $openinnewtab,
             $showunsavedwarning,
+            $uselegacyviewer,
             $showdownloadlinks
         );
 
@@ -187,6 +190,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param array $dir
      * @param boolean $openinnewtab
      * @param boolean $showunsavedwarning
+     * @param boolean $uselegacyviewer
      * @param boolean $showdownloadlinks
      * @return string HTML
      */
@@ -195,6 +199,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
         $dir,
         $openinnewtab,
         $showunsavedwarning,
+        $uselegacyviewer,
         $showdownloadlinks
     ) {
         if (empty($dir['subdirs']) && empty($dir['files'])) {
@@ -233,6 +238,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                     $subdir,
                     $openinnewtab,
                     $showunsavedwarning,
+                    $uselegacyviewer,
                     $showdownloadlinks
                 )
             );
@@ -277,9 +283,17 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             } else {
                 $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle');
                 $image = $this->output->render($icon);
-                $pdfjsfolderurl = new moodle_url(
-                    '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html'
-                );
+                
+                if ( $uselegacyviewer ) {
+                    $pdfjsfolderurl = new moodle_url(
+                        '/mod/pdfjsfolder/pdfjs-5.4.394-legacy-dist/web/viewer.html'
+                    );
+                } else {
+                    $pdfjsfolderurl = new moodle_url(
+                        '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html'
+                    );
+                }
+                
                 $url = $pdfjsfolderurl . '?file=' . $fileurl;
                 $isimage = false;
             }
