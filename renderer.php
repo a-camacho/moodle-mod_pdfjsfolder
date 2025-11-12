@@ -290,7 +290,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                     );
                 } else {
                     $pdfjsfolderurl = new moodle_url(
-                        '/mod/pdfjsfolder/pdfjs-5.4.296-dist/web/viewer.html'
+                        '/mod/pdfjsfolder/pdfjs-5.4.394-dist/web/viewer.html'
                     );
                 }
                 
