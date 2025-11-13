@@ -98,7 +98,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         );
         $mform->addHelpButton('showfilechangeswarning', 'showfilechangeswarning', 'pdfjsfolder');
         $mform->setDefault('showfilechangeswarning', $config->showfilechangeswarning);
-        
+
         // Option for choosing if pdfjsfolder should use legacy viewer
         $mform->addElement(
             'advcheckbox',
@@ -107,7 +107,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         );
         $mform->addHelpButton('uselegacyviewer', 'uselegacyviewer', 'pdfjsfolder');
         $mform->setDefault('uselegacyviewer', $config->showfilechangeswarning);
-        
+
         // Option for showing sub-folders expanded or collapsed.
         $mform->addElement(
             'advcheckbox',

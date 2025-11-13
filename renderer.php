@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -29,7 +30,8 @@ require_once($CFG->dirroot . '/mod/pdfjsfolder/locallib.php');
 /**
  * Pdfjsfolder module renderer class
  */
-class mod_pdfjsfolder_renderer extends plugin_renderer_base {
+class mod_pdfjsfolder_renderer extends plugin_renderer_base
+{
     /**
      * Renders the pdfjsfolder page header.
      *
@@ -37,7 +39,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param cm_info $cm
      * @return string
      */
-    public function pdf_header(pdfjsfolder $pdfjsfolder, cm_info $cm) {
+    public function pdf_header(pdfjsfolder $pdfjsfolder, cm_info $cm)
+    {
         $output = '';
 
         if (method_exists($cm, 'get_formatted_name')) {
@@ -70,7 +73,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    public function pdf_footer() {
+    public function pdf_footer()
+    {
         return $this->output->footer();
     }
 
@@ -80,7 +84,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param pdfjsfolder $pdfjsfolder
      * @return string The page output.
      */
-    public function render_pdfjsfolder(pdfjsfolder $pdfjsfolder) {
+    public function render_pdfjsfolder(pdfjsfolder $pdfjsfolder)
+    {
         $output = '';
 
         $coursemodule = $pdfjsfolder->get_course_module();
@@ -137,7 +142,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param string $areaname file area name (e.g. "pdfs")
      * @return array of stored_file objects
      */
-    private function util_get_area_tree($contextid, $areaname) {
+    private function util_get_area_tree($contextid, $areaname)
+    {
         $fs = get_file_storage();
         return $fs->get_area_tree(
             $contextid,
@@ -154,7 +160,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param cm_info $cm
      * @return string HTML
      */
-    protected function get_pdf_folder_html(pdfjsfolder $pdfjsfolder, cm_info $cm) {
+    protected function get_pdf_folder_html(pdfjsfolder $pdfjsfolder, cm_info $cm)
+    {
         $output = '';
         $tree = $this->util_get_area_tree(
             $pdfjsfolder->get_context()->id,
@@ -283,8 +290,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
             } else {
                 $icon = new pix_icon(file_file_icon($pdf), $filename, 'moodle');
                 $image = $this->output->render($icon);
-                
-                if ( $uselegacyviewer ) {
+
+                if ($uselegacyviewer) {
                     $pdfjsfolderurl = new moodle_url(
                         '/mod/pdfjsfolder/pdfjs-5.4.394-legacy-dist/web/viewer.html'
                     );
@@ -293,7 +300,7 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
                         '/mod/pdfjsfolder/pdfjs-5.4.394-dist/web/viewer.html'
                     );
                 }
-                
+
                 $url = $pdfjsfolderurl . '?file=' . $fileurl;
                 $isimage = false;
             }
@@ -349,7 +356,8 @@ class mod_pdfjsfolder_renderer extends plugin_renderer_base {
      * @param cm_info $cm
      * @return string HTML
      */
-    public function pdfs(pdfjsfolder $pdfjsfolder, cm_info $cm) {
+    public function pdfs(pdfjsfolder $pdfjsfolder, cm_info $cm)
+    {
         static $treecounter = 0;
         $output  = '';
 
