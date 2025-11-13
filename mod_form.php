@@ -99,7 +99,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
         $mform->addHelpButton('showfilechangeswarning', 'showfilechangeswarning', 'pdfjsfolder');
         $mform->setDefault('showfilechangeswarning', $config->showfilechangeswarning);
 
-        // Option for choosing if pdfjsfolder should use legacy viewer
+        // Option for choosing if pdfjsfolder should use legacy viewer.
         $mform->addElement(
             'advcheckbox',
             'uselegacyviewer',

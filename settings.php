@@ -69,8 +69,8 @@ if ($ADMIN->fulltree) {
             0
         )
     );
-    
-    // Default use legacy viewer
+
+    // Default use legacy viewer.
     $settings->add(
         new admin_setting_configcheckbox(
             'pdfjsfolder/uselegacyviewer',
@@ -89,7 +89,7 @@ if ($ADMIN->fulltree) {
             1
         )
     );
-    
+
     // Default use legacy viewer.
     $settings->add(
         new admin_setting_configcheckbox(
