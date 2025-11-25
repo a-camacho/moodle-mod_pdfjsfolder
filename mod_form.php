@@ -106,7 +106,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
             get_string('uselegacyviewer', 'pdfjsfolder')
         );
         $mform->addHelpButton('uselegacyviewer', 'uselegacyviewer', 'pdfjsfolder');
-        $mform->setDefault('uselegacyviewer', $config->showfilechangeswarning);
+        $mform->setDefault('uselegacyviewer', $config->uselegacyviewer);
 
         // Option for showing sub-folders expanded or collapsed.
         $mform->addElement(
