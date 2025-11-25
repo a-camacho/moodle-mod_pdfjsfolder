@@ -7473,3 +7473,8 @@ dialog :link{
     display:none;
   }
 }
+
+/* UNIGE: hide edit, print and download buttons */
+#editorStamp, #printButton, #downloadButton, #secondaryOpenFile {
+  display: none;
+}
