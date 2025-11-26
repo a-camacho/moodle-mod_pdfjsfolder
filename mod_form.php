@@ -186,7 +186,7 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
      * @param array $files array of uploaded files "element_name"=>tmp_file_path
      * @return array eventual errors indexed by the field name
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @phpcs:ignore PHP_CodeSniffer.Sniffs.Functions.UnusedParameter
      */
     public function validation($data, $files) {
         $errors = [];
