@@ -25,7 +25,7 @@
 /**
  * Structure step to restore one pdfjsfolder activity.
  */
-class restore_pdfjsfolder_activity_structure_step extends restore_activity_structure_step {
+class restore_pdfjsfolder_structure_step extends restore_activity_structure_step {
     /**
      * Defines the backup structure.
      *

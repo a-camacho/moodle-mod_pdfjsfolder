@@ -183,10 +183,9 @@ class mod_pdfjsfolder_mod_form extends moodleform_mod {
      * Validates the form input.
      *
      * @param array $data submitted data
-     * @param array $files array of uploaded files "element_name"=>tmp_file_path
      * @return array eventual errors indexed by the field name
      */
-    public function validation($data, $files) {
+    public function validation($data) {
         $errors = [];
 
         // On-view completion can not work together with display

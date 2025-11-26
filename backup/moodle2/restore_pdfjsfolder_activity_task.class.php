@@ -48,7 +48,7 @@ class restore_pdfjsfolder_activity_task extends restore_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(
-            new restore_pdfjsfolder_activity_structure_step(
+            new restore_pdfjsfolder_structure_step(
                 'pdfjsfolder_structure',
                 'pdfjsfolder.xml'
             )

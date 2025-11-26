@@ -27,7 +27,7 @@
  * Define the complete pdfjsfolder structure for backup, with file
  * and id annotations.
  */
-class backup_pdfjsfolder_activity_structure_step extends backup_activity_structure_step {
+class backup_pdfjsfolder_structure_step extends backup_activity_structure_step {
     /**
      * Define structure function.
      */
