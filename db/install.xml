@@ -12,8 +12,8 @@
         <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the pdfjsfolder activity" PREVIOUS="name" NEXT="introformat"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The format of the description field of the pdfjsfolder. This field is used by feature MOD_INTRO." PREVIOUS="intro" NEXT="display"/>
         <FIELD NAME="display" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Display type of folder contents - on a separate page or inline" PREVIOUS="introformat" NEXT="showexpanded"/>
-        <FIELD NAME="showexpanded" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = expanded, 0 = collapsed for sub-folders" PREVIOUS="display" NEXT="showexpanded"/>
-        <FIELD NAME="openinnewtab" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = opens in new tab, 0 = opens in existing tab" PREVIOUS="showexpanded" NEXT="openinnewtab"/>
+        <FIELD NAME="showexpanded" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = expanded, 0 = collapsed for sub-folders" PREVIOUS="display" NEXT="openinnewtab"/>
+        <FIELD NAME="openinnewtab" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 = opens in new tab, 0 = opens in existing tab" PREVIOUS="showexpanded" NEXT="showfilechangeswarning"/>
         <FIELD NAME="showfilechangeswarning" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="1 = show warning, 0 = hide warning" PREVIOUS="openinnewtab" NEXT="uselegacyviewer"/>
         <FIELD NAME="uselegacyviewer" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="1 = use legacy viewer, 0 = use modern viewer" PREVIOUS="showfilechangeswarning" NEXT="timecreated"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="uselegacyviewer" NEXT="timemodified"/>
