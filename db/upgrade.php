@@ -88,11 +88,11 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
             $DB->delete_records('course_modules', ['module' => $module->id, 'instance' => 0]);
             rebuild_course_cache(0, true);
         }
-        // Repair db table autoincrement
 
+        // Repair db table autoincrement.
         $table = new xmldb_table('pdfjsfolder');
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
         if (!$dbman->key_exists($table, $key)) {
             $dbman->add_key($table, $key);
