@@ -80,7 +80,6 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2025111201, 'pdfjsfolder');
     }
 
-    // Timestamp when you are fixing this (e.g., today)
     if ($oldversion < 2026012121) {
 
         $DB->delete_records('pdfjsfolder', ['id' => 0]);
