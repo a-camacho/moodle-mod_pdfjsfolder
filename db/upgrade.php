@@ -81,21 +81,17 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
     }
 
     if ($oldversion < 2026012121) {
-
         $DB->delete_records('pdfjsfolder', ['id' => 0]);
         $module = $DB->get_record('modules', ['name' => 'pdfjsfolder']);
-
         if ($module) {
             $DB->delete_records('course_modules', ['module' => $module->id, 'instance' => 0]);
             rebuild_course_cache(0, true);
         }
-
         $table = new xmldb_table('pdfjsfolder');
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         if ($dbman->field_exists($table, $field)) {
             $dbman->change_field_type($table, $field);
         }
-
         upgrade_mod_savepoint(true, 2026012121, 'pdfjsfolder');
     }
 
