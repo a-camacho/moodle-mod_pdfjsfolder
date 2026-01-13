@@ -80,29 +80,37 @@ function xmldb_pdfjsfolder_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2025111201, 'pdfjsfolder');
     }
 
-    if ($oldversion < 2026012122) {
-        // Clean broken records of pdfjsfolder activities.
+    if ($oldversion < 2026012201) {
         $DB->delete_records('pdfjsfolder', ['id' => 0]);
         $module = $DB->get_record('modules', ['name' => 'pdfjsfolder']);
         if ($module) {
             $DB->delete_records('course_modules', ['module' => $module->id, 'instance' => 0]);
             rebuild_course_cache(0, true);
         }
+        upgrade_mod_savepoint(true, 2026012201, 'pdfjsfolder');
+    }
 
-        // Repair db table autoincrement.
-        $table = new xmldb_table('pdfjsfolder');
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, ['id']);
-
-        if (!$dbman->key_exists($table, $key)) {
-            $dbman->add_key($table, $key);
+    if ($oldversion < 2026012203) {
+        // Delete broken PDF.js folder activities records.
+        $DB->delete_records('pdfjsfolder', ['id' => 0]);
+        $module = $DB->get_record('modules', ['name' => 'pdfjsfolder']);
+        if ($module) {
+            $DB->delete_records('course_modules', ['module' => $module->id, 'instance' => 0]);
         }
-
-        if ($dbman->field_exists($table, $field)) {
-            $dbman->change_field_type($table, $field);
+        // Make sure that the DB schema is correct (primary key).
+        $columns = $DB->get_columns('pdfjsfolder');
+        if (isset($columns['id']) && empty($columns['id']->auto_increment)) {
+            $table = new xmldb_table('pdfjsfolder');
+            $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+            if (!$dbman->find_key_name($table, $key)) {
+                $dbman->add_key($table, $key);
+            }
+            if ($dbman->field_exists($table, $field)) {
+                $dbman->change_field_type($table, $field);
+            }
         }
-
-        upgrade_mod_savepoint(true, 2026012121, 'pdfjsfolder');
+        upgrade_mod_savepoint(true, 2026012203, 'pdfjsfolder');
     }
 
     // Final return of upgrade result (true, all went good) to Moodle.
