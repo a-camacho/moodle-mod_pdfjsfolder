@@ -41,8 +41,6 @@ variables:
         PHP_VERSION: [ "8.2" ]
       - MOODLE_BRANCH: [ "MOODLE_501_STABLE" ]
         PHP_VERSION: [ "8.4" ]
-      - MOODLE_BRANCH: [ "main" ]
-        PHP_VERSION: [ "8.4" ]
 
 test:mariadb:
   <<: *job_configuration

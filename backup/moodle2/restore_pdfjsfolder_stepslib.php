@@ -47,7 +47,7 @@ class restore_pdfjsfolder_structure_step extends restore_activity_structure_step
      *
      * @param  stdClass $data
      */
-    protected function process_pdfjsfolder(stdClass $data) {
+    protected function process_pdfjsfolder($data) {
         global $DB;
 
         $data = (object)$data;
