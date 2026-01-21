@@ -15,7 +15,6 @@ variables:
   COMPOSER_HOME: "$CI_PROJECT_DIR/.composer/cache"
   FF_NETWORK_PER_BUILD: "1"
   
-  # Chemin absolu pour l'installation
   MOODLE_ROOT: "$CI_PROJECT_DIR/../../moodle"
 
   npm_config_fetch_retries: "5"
@@ -60,19 +59,21 @@ variables:
     matrix:
       - MOODLE_BRANCH: [ "MOODLE_500_STABLE" ]
         PHP_VERSION: [ "8.2" ]
+      - MOODLE_BRANCH: [ "MOODLE_501_STABLE" ]
+        PHP_VERSION: [ "8.4" ]
 
 static_tests:
   extends: .moodle_job_template
   stage: static
   script:
     - moodle-plugin-ci phplint
-    # - moodle-plugin-ci phpmd
-    # - moodle-plugin-ci codechecker
-    # - moodle-plugin-ci validate
-    # - moodle-plugin-ci savepoints
-    # - moodle-plugin-ci mustache
-    # - moodle-plugin-ci grunt --max-lint-warnings 0
-    # - moodle-plugin-ci phpunit --fail-on-warning
+    - moodle-plugin-ci phpmd
+    - moodle-plugin-ci codechecker
+    - moodle-plugin-ci validate
+    - moodle-plugin-ci savepoints
+    - moodle-plugin-ci mustache
+    - moodle-plugin-ci grunt --max-lint-warnings 0
+    - moodle-plugin-ci phpunit --fail-on-warning
 
 behat_tests:
   extends: .moodle_job_template
@@ -86,37 +87,20 @@ behat_tests:
   script:
     - 'export IPADDRESS=$(grep "$HOSTNAME$" /etc/hosts | awk ''{print $1}'')'
     - 'echo "IP interne : $IPADDRESS"'
-    
-    # 1. Symlink pour le chemin relatif
     - 'ln -s "$MOODLE_ROOT" moodle'
-    
-    # 2. Config IP Moodle
     - 'export MOODLE_BEHAT_WWWROOT="http://$IPADDRESS:8000"'
-
-    # 3. FIX TIMEOUT (Indispensable pour l erreur Javascript)
     - 'echo "\$CFG->behat_increasetimeout = 4;" >> "$MOODLE_ROOT/config.php"'
-
-    # 4. Lancement Serveur (Ecoute partout)
     - 'php -S 0.0.0.0:8000 -t moodle > /dev/null 2>&1 &'
     - 'sleep 4'
-    
-    # 5. Lancement Behat
     - 'moodle-plugin-ci behat --moodle moodle --profile chrome --auto-rerun 0'
 
   after_script:
-    # DEBUG : On liste le dossier parent pour être sûr de voir où est moodledata
     - 'ls -la $MOODLE_ROOT/../'
-    
-    # Préparation du dossier de réception
     - 'mkdir -p behat_fail_dump'
-    
-    # CORRECTION DU CHEMIN DE COPIE :
-    # On remonte d un cran (../) depuis MOODLE_ROOT pour trouver moodledata
     - 'cp -r $MOODLE_ROOT/../moodledata/behat_fail_dump/* behat_fail_dump/ || echo "Pas de dump trouvé ou copie impossible"'
 
   artifacts:
     when: always
     paths:
-      # On récupère le dossier local qu on vient de remplir
       - "behat_fail_dump/"
     expire_in: 1 week
