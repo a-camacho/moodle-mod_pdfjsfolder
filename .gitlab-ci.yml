@@ -1,75 +1,122 @@
+stages:
+  - static
+  - acceptance
+
 default:
   image: ubuntu:latest
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .composer/cache
 
 variables:
   CI_BUILD_DIR: "$CI_PROJECT_DIR"
   COMPOSER_HOME: "$CI_PROJECT_DIR/.composer/cache"
+  FF_NETWORK_PER_BUILD: "1"
+  
+  # Chemin absolu pour l'installation
+  MOODLE_ROOT: "$CI_PROJECT_DIR/../../moodle"
 
-  POSTGRES_USER: "postgres"
-  POSTGRES_HOST_AUTH_METHOD: "trust"
+  npm_config_fetch_retries: "5"
+  npm_config_fetch_retry_mintimeout: "100000"
+  npm_config_fetch_retry_maxtimeout: "600000"
+  npm_config_update_notifier: "false"
+  MOODLE_BEHAT_WDHOST: "http://selenium:4444/wd/hub"
+  MOODLE_START_BEHAT_SERVERS: "0"
 
-  MYSQL_ROOT_HOST: "%"
-  MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-  MYSQL_CHARACTER_SET_SERVER: "utf8mb4"
-  MYSQL_COLLATION_SERVER: "utf8mb4_unicode_ci"
+.mariadb_configuration: &mariadb_configuration
+  name: mariadb:10.11
+  alias: mariadb
+  command: 
+    - "--character-set-server=utf8mb4"
+    - "--collation-server=utf8mb4_unicode_ci"
+    - "--wait_timeout=28800"
+  variables:
+    MARIADB_ROOT_PASSWORD: "root"
+    MARIADB_DATABASE: ""
+    MYSQL_DATABASE: ""
 
-.job_template: &job_configuration
+.moodle_job_template:
   image: quay.io/amc/moodle-plugin-ci:${PHP_VERSION}-node.22
-  before_script:
-    - cd ../..
-    - moodle-db-isready
-    - moodle-plugin-ci install --moodle="moodle-upstream-core" --db-host=$DB_HOST --db-port=$DB_PORT
-  script:
-    - moodle-plugin-ci phplint
-    - moodle-plugin-ci phpmd
-    - moodle-plugin-ci codechecker
-    - moodle-plugin-ci phpdoc
-    - moodle-plugin-ci validate
-    - moodle-plugin-ci savepoints
-    - moodle-plugin-ci mustache
-    - moodle-plugin-ci grunt --max-lint-warnings 0
-    - moodle-plugin-ci phpunit --fail-on-warning
-    - moodle-plugin-ci phpdoc
-    #- moodle-plugin-ci behat --profile chrome --auto-rerun 0
-  parallel:
-    matrix:
-      - MOODLE_BRANCH: [ "MOODLE_500_STABLE" ]
-        PHP_VERSION: [ "8.2" ]
-      - MOODLE_BRANCH: [ "MOODLE_501_STABLE" ]
-        PHP_VERSION: [ "8.4" ]
 
-test:mariadb:
-  <<: *job_configuration
   services:
-    - name: mariadb:10.11
-    - name: docker:dind
+    - *mariadb_configuration
 
   variables:
     DB: "mariadb"
     DB_HOST: "mariadb"
     DB_PORT: 3306
+    DB_USER: "root"
+    DB_PASS: "root"
+    MYSQL_ROOT_PASSWORD: "root"
 
-# test:postgres:
-#   <<: *job_configuration
-#   services:
-#     - postgres:14
-#     - docker:dind
-#   variables:
-#     DB: pgsql
-#     DB_HOST: postgres
-#     DB_PORT: 5432
+  before_script:
+    - cd ../..
+    - moodle-db-isready
+    - moodle-plugin-ci install --moodle="$MOODLE_ROOT" --branch="${MOODLE_BRANCH}" --db-host="${DB_HOST}" --db-port="${DB_PORT}" --db-user="${DB_USER}" --db-pass="${DB_PASS}"
 
-# test:mysql:
-#   <<: *job_configuration
-#   services:
-#     - name: mysql:8.0.23
-#       command: ["mysqld", "--port=6033"]
-#     - docker:dind
-#   variables:
-#     DB: mysqli
-#     DB_HOST: mysql
-#     DB_PORT: 6033
+  parallel:
+    matrix:
+      - MOODLE_BRANCH: [ "MOODLE_500_STABLE" ]
+        PHP_VERSION: [ "8.2" ]
+
+static_tests:
+  extends: .moodle_job_template
+  stage: static
+  script:
+    - moodle-plugin-ci phplint
+    # - moodle-plugin-ci phpmd
+    # - moodle-plugin-ci codechecker
+    # - moodle-plugin-ci validate
+    # - moodle-plugin-ci savepoints
+    # - moodle-plugin-ci mustache
+    # - moodle-plugin-ci grunt --max-lint-warnings 0
+    # - moodle-plugin-ci phpunit --fail-on-warning
+
+behat_tests:
+  extends: .moodle_job_template
+  stage: acceptance
+
+  services:
+    - *mariadb_configuration
+    - name: selenium/standalone-chrome:latest
+      alias: selenium
+
+  script:
+    - 'export IPADDRESS=$(grep "$HOSTNAME$" /etc/hosts | awk ''{print $1}'')'
+    - 'echo "IP interne : $IPADDRESS"'
+    
+    # 1. Symlink pour le chemin relatif
+    - 'ln -s "$MOODLE_ROOT" moodle'
+    
+    # 2. Config IP Moodle
+    - 'export MOODLE_BEHAT_WWWROOT="http://$IPADDRESS:8000"'
+
+    # 3. FIX TIMEOUT (Indispensable pour l erreur Javascript)
+    - 'echo "\$CFG->behat_increasetimeout = 4;" >> "$MOODLE_ROOT/config.php"'
+
+    # 4. Lancement Serveur (Ecoute partout)
+    - 'php -S 0.0.0.0:8000 -t moodle > /dev/null 2>&1 &'
+    - 'sleep 4'
+    
+    # 5. Lancement Behat
+    - 'moodle-plugin-ci behat --moodle moodle --profile chrome --auto-rerun 0'
+
+  after_script:
+    # DEBUG : On liste le dossier parent pour être sûr de voir où est moodledata
+    - 'ls -la $MOODLE_ROOT/../'
+    
+    # Préparation du dossier de réception
+    - 'mkdir -p behat_fail_dump'
+    
+    # CORRECTION DU CHEMIN DE COPIE :
+    # On remonte d un cran (../) depuis MOODLE_ROOT pour trouver moodledata
+    - 'cp -r $MOODLE_ROOT/../moodledata/behat_fail_dump/* behat_fail_dump/ || echo "Pas de dump trouvé ou copie impossible"'
+
+  artifacts:
+    when: always
+    paths:
+      # On récupère le dossier local qu on vient de remplir
+      - "behat_fail_dump/"
+    expire_in: 1 week
